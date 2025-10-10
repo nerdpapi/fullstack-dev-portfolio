@@ -3,8 +3,6 @@ import Visitor from "../models/Visitor.js";
 import axios from "axios";
 
 const router = express.Router();
-
-// POST visitor
 router.post("/", async (req, res) => {
   try {
     const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress || "Unknown";
@@ -23,7 +21,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// GET all visitors
+
 router.get("/", async (req, res) => {
   try {
     const visitors = await Visitor.find().sort({ _id: -1 });
