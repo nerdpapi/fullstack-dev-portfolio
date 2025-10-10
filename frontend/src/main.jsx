@@ -28,7 +28,7 @@ function Tracker() {
   useEffect(() => {
     const fetchVisitors = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/visitors");
+        const res = await axios.get("https://fullstack-dev-portfolio.onrender.com/api/visitors");
         setVisitorCount(res.data.length);
       } catch (err) {
         console.error("Failed to fetch visitor count:", err);
