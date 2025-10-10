@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+  
+  @keyframes rgbShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 400% 50%;
+  }
+}
+
+@keyframes flicker {
+  0%, 25%, 35%, 60% { opacity: 0; }
+  30%, 40%, 50%, 100% { opacity: 1; }
+}
+
+
+@font-face {
+    font-family: "Gilroy";
+    src: url("./assets/fonts/Gilroy-Medium.woff2") format("woff2");
+  }
+  
+  .gilroy {
+    font-family: "Gilroy", sans-serif;
+  }
+  
+  @font-face {
+    font-family: "NeueMachina";
+    src: url("./assets/fonts/NeueMachina-Regular.woff2") format("woff2");
+    
+  
+  }
+  
+  .neue-machina {
+    font-family: "NeueMachina", sans-serif;
+  }
+  
+  @font-face {
+    font-family: "ClashDisplay";
+    src: url("./assets/fonts/ClashDisplay-Variable.woff2") format("woff2");
+  }
+  .ClashDisplay {
+    font-family: "ClashDisplay", sans-serif;
+  }
+  
+  @font-face {
+    font-family: "Geist";
+    src: url("./assets/fonts/Geist-Variable.woff2") format("woff2");
+  }
+  .Geist {
+    font-family: "Geist", sans-serif;
+  }
+  
+  @font-face {
+    font-family: "GeistMono";
+    src: url("./assets/fonts/GeistMono-Variable.woff2") format("woff2");
+  }
+  .GeistMono {
+    font-family: "GeistMono", sans-serif;
+  }
+  
+  * {
+    font-family: "Geist", sans-serif;
+
+  }  
+  
+  .typewriter-text {
+    font-family: "NeueMachina", sans-serif;
+  }
