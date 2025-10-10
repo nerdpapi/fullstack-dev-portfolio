@@ -15,9 +15,9 @@ function Tracker() {
 
       try {
         await axios.post(`${BASE_URL}/api/visitors`, { browser, os });
-        console.log("✅ Visitor tracked successfully");
+        console.log("success");
       } catch (err) {
-        console.error("❌ Visitor tracking failed:", err.message);
+        console.error(err.message);
       }
     };
 
@@ -30,7 +30,7 @@ function Tracker() {
         const res = await axios.get(`${BASE_URL}/api/visitors`);
         setVisitorCount(res.data.length || 0);
       } catch (err) {
-        console.error("❌ Failed to fetch visitor count:", err.message);
+        console.error( err.message);
       }
     };
 
