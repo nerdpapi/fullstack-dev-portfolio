@@ -30,7 +30,7 @@ export default function ProjectsSection() {
 
     const updateScroll = () => {
       const totalWidth = flex.scrollWidth;
-      const padding = 100;
+      const padding = 80;
       const viewportWidth = container.offsetWidth;
       const scrollDistance = totalWidth - viewportWidth + padding;
 

@@ -30,7 +30,7 @@ function Tracker() {
         const res = await axios.get(`${BASE_URL}/api/visitors`);
         setVisitorCount(res.data.length || 0);
       } catch (err) {
-        console.error( err.message);
+        console.error(err.message);
       }
     };
 
@@ -42,20 +42,13 @@ function Tracker() {
   return (
     <div>
       <App />
-      <div
-        style={{
-          position: "fixed",
-          bottom: "20px",
-          right: "20px",
-          backgroundColor: "rgba(0,0,0,0.7)",
-          color: "white",
-          padding: "10px 15px",
-          borderRadius: "8px",
-          fontFamily: "sans-serif",
-          fontWeight: "bold",
-          zIndex: 1000,
-        }}
-      >
+      <div className="fixed bottom-5 right-5 bg-black/70
+               text-white px-4 py-2 rounded-lg font-sans font-bold z-50
+                sm:bottom-4 sm:right-4 sm:px-3 sm:py-1
+                xs:bottom-3 xs:right-3 xs:px-2 xs:py-1 text-sm
+                md:text-base
+                lg:text-lg
+                ">
         Visitors: {visitorCount}
       </div>
     </div>
