@@ -130,7 +130,7 @@ export default function ProjectsSection() {
 
   {/* Arrow overlay */}
   <a
-    href="https://example.com"
+    href="https://url-shortener-app-siga.onrender.com/"
     target="_blank"
     rel="noopener noreferrer"
     className="
