@@ -22,53 +22,61 @@ export default function ProjectsSection() {
   //   }
   // };
   useEffect(() => {
+  const ctx = gsap.context(() => {
+
     const container = containerRef.current;
     const flex = flexRef.current;
-    console.log(container);
-    console.log(flex);
     if (!container || !flex) return;
 
-    const updateScroll = () => {
-      const totalWidth = flex.scrollWidth;
-      const padding = 80;
-      const viewportWidth = container.offsetWidth;
-      const scrollDistance = totalWidth - viewportWidth + padding;
+    const mm = gsap.matchMedia();
+    
+    mm.add("(min-width: 768px)", () => {
+      const updateScroll = () => {
+        const totalWidth = flex.scrollWidth;
+        const viewportWidth = container.offsetWidth;
+        const scrollDistance = totalWidth - viewportWidth;
 
-      gsap.to(flex, {
-        x: -scrollDistance,
-        ease: "none",
-        scrollTrigger: {
-          trigger: container,
-          start: "top top",
-          end: `+=${scrollDistance}`,
-          scrub: true,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
-      });
-    };
+        gsap.to(flex, {
+          x: -scrollDistance,
+          ease: "none",
+          scrollTrigger: {
+            id: "projectsScroll",
+            trigger: container,
+            start: "top top",
+            end: `+=${scrollDistance}`,
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        });
 
-    updateScroll();
+        setTimeout(() => ScrollTrigger.refresh(), 100);
+      };
 
-    // Recalculate on window resize for responsiveness
-    window.addEventListener("resize", updateScroll);
-    console.log(updateScroll);
+      updateScroll();
+      window.addEventListener("resize", updateScroll);
 
-    return () => {
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
-      window.removeEventListener("resize", updateScroll);
-      console.log(updateScroll);
-    };
-  }, []);
+      return () => window.removeEventListener("resize", updateScroll);
+    });
+
+    mm.add("(max-width: 767px)", () => {
+      gsap.set(flex, { clearProps: "all" });
+      ScrollTrigger.getById("projectsScroll")?.kill(); // ✅ Only kill THIS trigger
+    });
+
+  }, containerRef); // <-- Scope animations to this component
+
+  return () => ctx.revert();
+}, []);
+
 
   return (
     <section
       id="project"
-      className="bg-[#f2f2f2] relative h-screen py-10 md:py-16 xl:py-20 px-5 md:px-10 xl:px-20 overflow-hidden"
+      className="bg-[#f2f2f2] relative min-h-screen py-10 md:py-16 xl:py-20 px-5 md:px-10 xl:px-20"
       ref={containerRef}
     >
-      {/* Sticky heading */}
       <div className="text-center xl:text-left mb-15 md:mb-30 xl:mb-30 z-10 bg-[#f2f2f2]">
         <h1 className="text-4xl md:text-5xl xl:text-[80px] font-bold">
           <span className="italic gilroy">PRO</span>
@@ -77,9 +85,10 @@ export default function ProjectsSection() {
           </span>
         </h1>
       </div>
-
-      {/* Horizontal Scroll Flex */}
-      <div ref={flexRef} className="flex gap-0 ">
+      <div
+  ref={flexRef}
+  className="flex gap-0  overflow-x-auto  xl:overflow-visible touch-pan-x scroll-smooth"
+>
         {/* Project 1 */}
         <div className=" flex-shrink-0 w-full sm:w-[80vw] md:w-[60vw] xl:w-[40vw] bg-[#f2f2f2] p-6 border border-black">
           <div className="work-info mb-6">
@@ -91,7 +100,7 @@ export default function ProjectsSection() {
               </div>
             </div>
             <h2 className="ClashDisplay font-semibold text-[#3545d1]">Tools and Features</h2>
-            <p className="ClashDisplay text-[#7b88c6]">MongoDB,&nbsp; Express,&nbsp; React(Vite),&nbsp; Node.js</p>
+            <p className="ClashDisplay text-[#7b88c6]">MongoDB,&nbsp; Express,&nbsp; React(Vite),&nbsp; Node.js, Redis(Cache)</p>
           </div>
           <div className="relative w-full h-60 md:h-80 overflow-hidden group">
   <video
@@ -130,7 +139,7 @@ export default function ProjectsSection() {
 
   {/* Arrow overlay */}
   <a
-    href="https://url-shortener-app-siga.onrender.com/"
+    href="https://example.com"
     target="_blank"
     rel="noopener noreferrer"
     className="
@@ -160,12 +169,12 @@ export default function ProjectsSection() {
             <div className="work-title flex items-center gap-5 mb-4">
               <h1 className="ClashDisplay text-5xl font-medium text-[#9932cc]">02</h1>
               <div>
-                <h2 className="ClashDisplay text-sm sm:text-base md:text-xl text-[#3545d1] font-normal">Users-data Dashboard(RTK)</h2>
-                <p className="ClashDisplay text-[#7b88c6]">Frontend</p>
+                <h2 className="ClashDisplay text-sm sm:text-base md:text-xl text-[#3545d1] font-normal">Regional Pricing App(RTK)</h2>
+                <p className="ClashDisplay text-[#7b88c6]">Full Stack</p>
               </div>
             </div>
             <h2 className="ClashDisplay font-semibold text-[#3545d1]">Tools and Features</h2>
-            <p className="ClashDisplay text-[#7b88c6]">React,&nbsp; Redux Toolkit,&nbsp; HTML/CSS(Tailwind)</p>
+            <p className="ClashDisplay text-[#7b88c6]">React,&nbsp; Next.js,&nbsp; ShadCN UI,&nbsp; Express.js,&nbsp; MongoDB Atlas,&nbsp; Redux Toolkit,&nbsp; HTML/CSS(Tailwind)</p>
           </div>
           <div className="relative w-full h-60 md:h-80 overflow-hidden group">
   <video
@@ -177,10 +186,10 @@ export default function ProjectsSection() {
     playsInline
     className="w-full h-full object-cover"
   >
-    <source src="/videos/userdatawebsite.webm" type='video/webm; codecs="vp9"' />
+    <source src="#" type='video/webm; codecs="vp9"' />
   </video>
   <a
-    href="https://github.com/nerdpapi/users-data-redux.git"
+    href="https://github.com/nerdpapi/regional-pricing-app.git"
     target="_blank"
     rel="noopener noreferrer"
     className="
@@ -204,7 +213,7 @@ export default function ProjectsSection() {
 
   {/* Arrow overlay */}
   <a
-    href="https://example.com"
+    href="https://regional-pricing-app.vercel.app/"
     target="_blank"
     rel="noopener noreferrer"
     className="
@@ -379,17 +388,17 @@ export default function ProjectsSection() {
         </div>
 
         {/* Project 5 */}
-        <div className=" flex-shrink-0 w-full sm:w-[80vw] md:w-[60vw] xl:w-[40vw] bg-[#f2f2f2] p-6 border border-black">
+        <div className=" flex-shrink-0 w-full sm:w-[80vw] md:w-[60vw] xl:w-[40vw] bg-[#f2f2f2] p-6 border border-black xl:pr-[10vh]">
           <div className="work-info mb-6">
             <div className="work-title flex items-center gap-5 mb-4">
               <h1 className="ClashDisplay text-5xl font-medium text-[#9932cc]">05</h1>
               <div>
-                <h2 className="ClashDisplay text-sm sm:text-base md:text-xl text-[#3545d1] font-normal">3M Corporate Official Website</h2>
-                <p className="ClashDisplay text-[#7b88c6]">UI/UX & Frontend</p>
+              <h2 className="ClashDisplay text-sm sm:text-base md:text-xl text-[#3545d1] font-normal">Users-data Dashboard(RTK)</h2>
+                <p className="ClashDisplay text-[#7b88c6]">Frontend</p>
               </div>
             </div>
             <h2 className="ClashDisplay font-semibold text-[#3545d1]">Tools and Features</h2>
-            <p className="ClashDisplay text-[#7b88c6]">PhP,&nbsp; HTML,&nbsp; Bootstrap CSS,&nbsp; React JS</p>
+            <p className="ClashDisplay text-[#7b88c6]">React,&nbsp; Redux Toolkit,&nbsp; HTML/CSS(Tailwind)</p>
           </div>
           <div className="relative w-full h-60 md:h-80 overflow-hidden group">
   <video
@@ -401,10 +410,10 @@ export default function ProjectsSection() {
     playsInline
     className="w-full h-full object-cover"
   >
-    <source src="/videos/3Mwebsite.webm" type='video/webm; codecs="vp9"' />
+    <source src="/videos/userdatawebsite.webm" type='video/webm; codecs="vp9"' />
   </video>
   <a
-    href="https://github.com/yourusername/yourrepo"
+    href="https://github.com/nerdpapi/users-data-redux.git"
     target="_blank"
     rel="noopener noreferrer"
     className="
@@ -428,7 +437,7 @@ export default function ProjectsSection() {
 
   {/* Arrow overlay */}
   <a
-    href="https://3mcorporate.in/"
+    href="https://example.com"
     target="_blank"
     rel="noopener noreferrer"
     className="
@@ -450,6 +459,7 @@ export default function ProjectsSection() {
     <MdArrowOutward />
   </a>
 </div>
+
         </div>
       </div>
     </section>
