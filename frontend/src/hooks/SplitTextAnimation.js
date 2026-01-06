@@ -78,7 +78,7 @@ if (scrollTrigger) {
   });
   tl.fromTo(split[splitType], { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration, ease: "power2.out", stagger });
 } else {
-  // If we want the animation to play immediately
+  // If we want the animation immediately
   tl = gsap.timeline();
   tl.fromTo(split[splitType], { opacity: 0, scale: 0 }, { opacity: 1, scale: 1, duration, ease: "power2.out", stagger });
 }
